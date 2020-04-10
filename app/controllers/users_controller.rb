@@ -4,7 +4,25 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
   	@books = @user.books
-  	@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
+		@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
+		@current_user_room = UserRoom.where(user_id: current_user.id)
+		@user_user_room = UserRoom.where(user_id: @user.id)
+		if @user.id == current_user.id
+    else
+      @current_user_room.each do |cu|
+        @user_user_room.each do |u|
+          if cu.room_id == u.room_id then
+            @isRoom = true
+            @roomId = cu.room_id
+          end
+        end
+      end
+      if @isRoom
+      else
+        @room = Room.new
+        @user_room = UserRoom.new
+      end
+    end
   end
 
 	def index
