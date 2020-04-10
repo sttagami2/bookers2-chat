@@ -1,0 +1,8 @@
+<%= form_with(model: [book, comment], url: book_book_comments_path(@book) ) do |f| %>
+  <div>
+    <%= f.text_area :body, class: "col-xs-12" %>
+  </div>
+  <div>
+    <%= f.submit "送信", class: "col-xs-12 btn btn-primary"  %>
+  </div>
+<% end %>
